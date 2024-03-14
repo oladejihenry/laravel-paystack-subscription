@@ -25,7 +25,7 @@ return [
     | interacting with PaystackSubscription related methods, subscriptions, etc.
     |
     */
-    'model' => env('SUBSCRIPTION_MODEL', App\User::class),
+    'model' => env('SUBSCRIPTION_MODEL', App\Models\User::class),
 
     /*
    |--------------------------------------------------------------------------
