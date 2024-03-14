@@ -4,10 +4,6 @@
         {
             "type": "vcs",
             "url": "https://github.com/oladejihenry/laravel-paystack-subscription"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/oladejihenry/laravel-paystack-webhooks"
         }
     ],
     "description": "A simple interface to Paystack's subscription billing services. It takes the pain of implementing subscription management off you.",
@@ -29,7 +25,7 @@
     ],
     "require": {
         "php": "^8.0|^8.1|^8.2",
-        "oladejihenry/laravel-paystack-webhooks": "dev-master",
+        "digikraaft/laravel-paystack-webhooks": "^2.1",
         "digikraaft/paystack-php": "^2.2",
         "laravel/framework": "^9.0|^10.0|^11.0"
     },
