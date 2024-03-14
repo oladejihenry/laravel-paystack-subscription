@@ -1,5 +1,11 @@
 {
     "name": "digikraaft/laravel-paystack-subscription",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/oladejihenry/laravel-paystack-webhooks"
+        }
+    ],
     "description": "A simple interface to Paystack's subscription billing services. It takes the pain of implementing subscription management off you.",
     "keywords": [
         "digikraaft",
@@ -20,7 +26,7 @@
         }
     ],
     "require": {
-        "php": "^8.0|^8.1",
+        "php": "^8.0|^8.1|^8.2",
         "digikraaft/laravel-paystack-webhooks": "^2.1",
         "digikraaft/paystack-php": "^2.2",
         "laravel/framework": "^9.0|^10.0"
