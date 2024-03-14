@@ -3,7 +3,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/oladejihenry/laravel-paystack-webhooks"
+            "url": "https://github.com/oladejihenry/laravel-paystack-subscription"
         }
     ],
     "description": "A simple interface to Paystack's subscription billing services. It takes the pain of implementing subscription management off you.",
