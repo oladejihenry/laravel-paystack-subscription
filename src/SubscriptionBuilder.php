@@ -105,8 +105,7 @@ class SubscriptionBuilder
 
         /** @var \Digikraaft\PaystackSubscription\Subscription $subscription */
         $subscription = Subscription::create([
-            // 'name' => $this->name,
-            'name'  => 'default',
+            'name' => $this->name,
             'paystack_id' => $paystackSubscription->subscription_code,
             'paystack_status' => $paystackSubscription->status,
             'paystack_plan' => $plan->data->plan_code,
