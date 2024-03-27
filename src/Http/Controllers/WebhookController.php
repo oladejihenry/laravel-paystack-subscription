@@ -1,4 +1,5 @@
 <?php
+
 namespace Digikraaft\PaystackSubscription\Http\Controllers;
 
 use Digikraaft\PaystackSubscription\PaystackSubscription;
@@ -13,6 +14,32 @@ class WebhookController extends WebhooksController
      * @return \Symfony\Component\HttpFoundation\Response
      */
     protected function handleSubscriptionDisable(array $payload)
+    {
+        if ($user = $this->getUserByPaystackId($payload['data']['customer']['customer_code'])) {
+            $user->subscriptions->filter(function ($subscription) use ($payload) {
+                return $subscription->paystack_id === $payload['data']['subscription_code'];
+            })->each(function ($subscription) use ($payload) {
+                if (isset($payload['data']['status'])) {
+                    $subscription->paystack_status = $payload['data']['status'];
+                    $subscription->ends_at = $payload['data']['next_payment_date'];
+
+                    $subscription->save();
+
+                    return;
+                }
+            });
+        }
+
+        return $this->successMethod();
+    }
+
+    /**
+     * Handle cancelled customer subscription.
+     *
+     * @param  array  $payload
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function handleSubscriptionNotRenew(array $payload)
     {
         if ($user = $this->getUserByPaystackId($payload['data']['customer']['customer_code'])) {
             $user->subscriptions->filter(function ($subscription) use ($payload) {
@@ -65,6 +92,33 @@ class WebhookController extends WebhooksController
      * @return \Symfony\Component\HttpFoundation\Response
      */
     protected function handleInvoiceFailed(array $payload)
+    {
+        if ($user = $this->getUserByPaystackId($payload['data']['customer']['customer_code'])) {
+            $user->subscriptions->filter(function ($subscription) use ($payload) {
+                return $subscription->paystack_id === $payload['data']['subscription_code'];
+            })->each(function ($subscription) use ($payload) {
+                if (isset($payload['data']['status'])) {
+                    $subscription->paystack_status = $payload['data']['status'];
+                    $subscription->ends_at = $payload['data']['next_payment_date'];
+
+                    $subscription->save();
+
+                    return;
+                }
+            });
+        }
+
+        return $this->successMethod();
+    }
+
+
+    /**
+     * Handle a failed Invoice from a Paystack subscription.
+     *
+     * @param  array  $payload
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function handleInvoicePaymentFailed(array $payload)
     {
         if ($user = $this->getUserByPaystackId($payload['data']['customer']['customer_code'])) {
             $user->subscriptions->filter(function ($subscription) use ($payload) {
